@@ -10,7 +10,12 @@ interface SocialProps
   children: ReactNode;
 }
 
-interface 
+interface SocialLinkItemProps
+{
+  href: string;
+  tag: string;
+  label: ReactNode;
+}
 
 function Center(): React.JSX.Element
 {
@@ -70,7 +75,7 @@ function Docs(): React.JSX.Element
 function Social({children}: SocialProps): React.JSX.Element
 {
   return (
-          <div id="social">
+        <div id="social">
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#social-icon"></use>
           </svg>
@@ -83,13 +88,25 @@ function Social({children}: SocialProps): React.JSX.Element
   );
 }
 
-function SocialLinkItem({}: ): React.JSX.Element
+function SocialLinkItem({href, tag, label}:SocialLinkItemProps): React.JSX.Element
 {
-
+  return (
+        <li>
+          <a href={href} target="_blank" rel="noreferrer">
+            <svg
+              className="button-icon"
+              aria-hidden="true"
+            >
+              <use href={`/icons.svg${tag}`}></use>
+            </svg>
+            {label}
+          </a>
+        </li>
+  );
 }
 
-function App() {
-
+function App(): React.JSX.Element
+{
   return (
     <>
       <Center />
@@ -99,61 +116,16 @@ function App() {
       <section id="next-steps">
         <Docs />
         <Social>
-          <li>
-            <a href="https://github.com/vitejs/vite" target="_blank">
-              <svg
-                className="button-icon"
-                role="presentation"
-                aria-hidden="true"
-              >
-                <use href="/icons.svg#github-icon"></use>
-              </svg>
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a href="https://chat.vite.dev/" target="_blank">
-              <svg
-                className="button-icon"
-                role="presentation"
-                aria-hidden="true"
-              >
-                <use href="/icons.svg#discord-icon"></use>
-              </svg>
-              Discord
-            </a>
-          </li>
-          <li>
-            <a href="https://x.com/vite_js" target="_blank">
-              <svg
-                className="button-icon"
-                role="presentation"
-                aria-hidden="true"
-              >
-                <use href="/icons.svg#x-icon"></use>
-              </svg>
-              X.com
-            </a>
-          </li>
-          <li>
-            <a href="https://bsky.app/profile/vite.dev" target="_blank">
-              <svg
-                className="button-icon"
-                role="presentation"
-                aria-hidden="true"
-              >
-                <use href="/icons.svg#bluesky-icon"></use>
-              </svg>
-              Bluesky
-            </a>
-          </li>
-        <Social />
+          <SocialLinkItem href="https://github.com/vitejs/vite" tag="#github-icon" label="GitHub" />
+          <SocialLinkItem href="https://chat.vite.dev/" tag="#discord-icon" label="Discord" />
+          <SocialLinkItem href="https://x.com/vite_js" tag="#x-icon" label="X.com" />
+          <SocialLinkItem href="https://bsky.app/profile/vite.dev" tag="#bluesky-icon" label="Bluesky" />
+        </Social>
       </section>
-
       <div className="ticks"></div>
       <section id="spacer"></section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
